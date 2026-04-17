@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Grand Imperial Republic of Aarman</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A227;
+    --gold-light: #F0D060;
+    --gold-dark: #8B6F14;
+    --gold-bg: #FDF6E3;
+    --indigo: #3B2D8F;
+    --indigo-light: #6B5BD6;
+    --indigo-dark: #1E164A;
+    --indigo-bg: #ECEAFE;
+    --white: #FFFFFF;
+    --off-white: #F9F7F0;
+    --text: #1A1530;
+    --text-muted: #5A5070;
+    --border: rgba(59,45,143,0.15);
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--indigo-dark);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-brand {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    font-family: Georgia, serif;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    font-family: Arial, sans-serif;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    background: var(--indigo-dark);
+    color: white;
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--gold);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(201,162,39,0.04) 40px,
+      rgba(201,162,39,0.04) 80px
+    );
+  }
+  .seal {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    font-family: Arial, sans-serif;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: normal;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+  .hero-divider {
+    width: 80px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1.5rem auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-motto {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--indigo-dark);
+    border: none;
+    padding: 0.65rem 1.75rem;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    padding: 0.65rem 1.75rem;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(201,162,39,0.1); }
+
+  /* SECTIONS */
+  section { padding: 4rem 1.5rem; }
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: normal;
+    color: var(--indigo-dark);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .title-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  /* ABOUT */
+  .about-section { background: white; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .stat-card {
+    background: var(--off-white);
+    border: 0.5px solid var(--border);
+    padding: 1rem 1.25rem;
+    border-top: 2px solid var(--gold);
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.25rem;
+  }
+  .stat-value {
+    font-size: 15px;
+    color: var(--indigo-dark);
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+
+  /* FLAGS & MAPS */
+  .gallery-section { background: var(--off-white); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .gallery-card {
+    border: 0.5px solid var(--border);
+    background: white;
+    overflow: hidden;
+  }
+  .gallery-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+  }
+  .gallery-caption {
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+    border-top: 0.5px solid var(--border);
+    background: var(--off-white);
+  }
+  .gallery-caption strong {
+    display: block;
+    color: var(--indigo-dark);
+    margin-bottom: 2px;
+  }
+
+  /* FLAG SVG */
+  .flag-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--indigo-bg);
+    padding: 1.5rem;
+  }
+
+  /* DOCUMENTS */
+  .documents-section { background: white; }
+  .doc-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .doc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 0.5px solid var(--border);
+    background: var(--off-white);
+    transition: border-color 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .doc-item:hover { border-color: var(--gold); }
+  .doc-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--indigo-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .doc-meta { flex: 1; }
+  .doc-title {
+    font-size: 15px;
+    color: var(--indigo-dark);
+    margin-bottom: 2px;
+    font-family: Georgia, serif;
+  }
+  .doc-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+  }
+  .doc-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    background: var(--indigo-bg);
+    color: var(--indigo);
+    letter-spacing: 0.08em;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* ARTICLES */
+  .articles-section { background: var(--off-white); }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .article-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .article-card:hover { border-color: var(--gold); }
+  .article-category {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+  }
+  .article-title {
+    font-size: 17px;
+    color: var(--indigo-dark);
+    line-height: 1.4;
+  }
+  .article-excerpt {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    flex: 1;
+    font-family: Arial, sans-serif;
+  }
+  .article-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+    border-top: 0.5px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  /* LINKS */
+  .links-section { background: white; }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .link-card {
+    padding: 1.25rem;
+    border: 0.5px solid var(--border);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: all 0.2s;
+    background: var(--off-white);
+  }
+  .link-card:hover { border-color: var(--indigo); background: var(--indigo-bg); }
+  .link-name {
+    font-size: 15px;
+    color: var(--indigo-dark);
+    font-family: Georgia, serif;
+  }
+  .link-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--indigo-dark);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border-top: 2px solid var(--gold);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer .footer-name {
+    color: var(--gold-light);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    margin-bottom: 0.25rem;
+  }
+  footer a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Grand Imperial Republic of Aarman</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#documents">Documents</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#links">Links</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <!-- National Seal SVG -->
+  <div class="seal">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <circle cx="60" cy="60" r="58" fill="none" stroke="#C9A227" stroke-width="2"/>
+      <circle cx="60" cy="60" r="50" fill="#1E164A" stroke="#C9A227" stroke-width="1"/>
+      <!-- Sunburst rays -->
+      <g stroke="#C9A227" stroke-width="1" opacity="0.5">
+        <line x1="60" y1="12" x2="60" y2="28"/>
+        <line x1="60" y1="92" x2="60" y2="108"/>
+        <line x1="12" y1="60" x2="28" y2="60"/>
+        <line x1="92" y1="60" x2="108" y2="60"/>
+        <line x1="24" y1="24" x2="35" y2="35"/>
+        <line x1="85" y1="85" x2="96" y2="96"/>
+        <line x1="96" y1="24" x2="85" y2="35"/>
+        <line x1="24" y1="96" x2="35" y2="85"/>
+      </g>
+      <!-- Crown shape -->
+      <polygon points="60,28 50,42 40,36 44,52 76,52 80,36 70,42" fill="#C9A227"/>
+      <!-- Star in crown -->
+      <polygon points="60,33 62,39 68,39 63,43 65,49 60,45 55,49 57,43 52,39 58,39" fill="#1E164A"/>
+      <!-- Shield -->
+      <path d="M47,55 L47,75 Q47,82 60,87 Q73,82 73,75 L73,55 Z" fill="none" stroke="#C9A227" stroke-width="1.5"/>
+      <path d="M49,57 L49,74 Q49,80 60,85 Q71,80 71,74 L71,57 Z" fill="#3B2D8F" opacity="0.7"/>
+      <!-- Dividing line in shield -->
+      <line x1="60" y1="57" x2="60" y2="85" stroke="#C9A227" stroke-width="0.75" opacity="0.6"/>
+      <line x1="49" y1="68" x2="71" y2="68" stroke="#C9A227" stroke-width="0.75" opacity="0.6"/>
+      <!-- Stars in lower quadrants -->
+      <circle cx="54" cy="75" r="2" fill="#C9A227"/>
+      <circle cx="66" cy="75" r="2" fill="#F0D060"/>
+      <!-- Text arc -->
+      <path id="topArc" d="M20,60 a40,40 0 0,1 80,0" fill="none"/>
+      <path id="botArc" d="M22,65 a40,40 0 0,0 76,0" fill="none"/>
+      <text font-family="Georgia,serif" font-size="7.5" fill="#C9A227" letter-spacing="1.5">
+        <textPath href="#topArc" startOffset="50%" text-anchor="middle">GRAND IMPERIAL REPUBLIC</textPath>
+      </text>
+      <text font-family="Georgia,serif" font-size="7.5" fill="#C9A227" letter-spacing="1.5">
+        <textPath href="#botArc" startOffset="50%" text-anchor="middle">OF AARMAN</textPath>
+      </text>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">Official Web Presence</p>
+  <h1>Grand Imperial Republic<br>of <em>Aarman</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-motto">"Every Defeat, Every Victory."</p>
+  <div class="hero-cta">
+    <a class="btn-primary" href="#about">Discover Aarman</a>
+    <a class="btn-secondary" href="#documents">View Documents</a>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <p class="section-label">The Nation</p>
+    <h2 class="section-title">About Aarman</h2>
+    <div class="title-rule"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>The Grand Imperial Republic of Aarman stands as a sovereign nation built upon the dual pillars of imperial tradition and republican representation. Founded in the spirit of unity, Aarman recognizes the sacred bond between ruler and subject — a covenant expressed in the gold, indigo, and white of its national colors.</p>
+        <p>The Emperor serves as the supreme symbol of the state and its people, while the Republic ensures that governance flows from the will of Aarman's citizens. Together, they form a singular, enduring civilisation.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Official Name</div>
+          <div class="stat-value">Grand Imperial Republic of Aarman</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Short Name</div>
+          <div class="stat-value">Aarman</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Government</div>
+          <div class="stat-value">Imperial Republic</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">National Colors</div>
+          <div class="stat-value" style="display:flex;gap:6px;align-items:center;">
+            <span style="display:inline-block;width:14px;height:14px;background:#C9A227;"></span>
+            <span style="display:inline-block;width:14px;height:14px;background:#3B2D8F;"></span>
+            <span style="display:inline-block;width:14px;height:14px;background:#F9F7F0;border:0.5px solid #ccc;"></span>
+            Gold · Indigo · White
+          </div>
+        </div>
+        <div class="stat-card" style="grid-column: span 2;">
+          <div class="stat-label">Motto</div>
+          <div class="stat-value">"Unity through leadership, strength through the people."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="section-inner">
+    <p class="section-label">Visual Records</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="title-rule"></div>
+    <div class="gallery-grid">
+      <!-- National Flag -->
+      <div class="gallery-card">
+        <div class="flag-container">
+          <svg viewBox="0 0 240 160" width="240" height="160" xmlns="http://www.w3.org/2000/svg">
+            <!-- Flag: three horizontal stripes -->
+            <rect x="0" y="0" width="240" height="53" fill="#C9A227"/>
+            <rect x="0" y="53" width="240" height="54" fill="#3B2D8F"/>
+            <rect x="0" y="107" width="240" height="53" fill="#FFFFFF"/>
+            <!-- Center emblem: crown -->
+            <polygon points="120,62 112,74 104,69 107,80 133,80 136,69 128,74" fill="#C9A227"/>
+            <polygon points="120,65 122,71 128,71 123,74 125,80 120,77 115,80 117,74 112,71 118,71" fill="#3B2D8F"/>
+            <!-- Subtle border -->
+            <rect x="0" y="0" width="240" height="160" fill="none" stroke="#C9A227" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="gallery-caption">
+          <strong>National Flag of Aarman</strong>
+          Royal gold, indigo, and white — the colors of the Empire
+        </div>
+      </div>
+
+      <!-- Map placeholder -->
+      <div class="gallery-card">
+        <div class="gallery-img" style="background: #e8e4f5; flex-direction:column; gap: 8px;">
+          <svg viewBox="0 0 80 60" width="80" height="60">
+            <rect x="10" y="5" width="60" height="50" rx="4" fill="none" stroke="#3B2D8F" stroke-width="1.5" stroke-dasharray="4,2"/>
+            <circle cx="40" cy="30" r="8" fill="#3B2D8F" opacity="0.2"/>
+            <circle cx="40" cy="30" r="3" fill="#C9A227"/>
+            <line x1="40" y1="5" x2="40" y2="55" stroke="#3B2D8F" stroke-width="0.5" opacity="0.3"/>
+            <line x1="10" y1="30" x2="70" y2="30" stroke="#3B2D8F" stroke-width="0.5" opacity="0.3"/>
+          </svg>
+          <span style="font-size: 12px; color: #5A5070;">Map placeholder — upload your map</span>
+        </div>
+        <div class="gallery-caption">
+          <strong>Territory of Aarman</strong>
+          Geographic boundaries and regions
+        </div>
+      </div>
+
+      <!-- Art placeholder -->
+      <div class="gallery-card">
+        <div class="gallery-img" style="background: linear-gradient(135deg, #FDF6E3 0%, #ECEAFE 100%); flex-direction: column; gap: 8px;">
+          <svg viewBox="0 0 80 60" width="80" height="60">
+            <circle cx="40" cy="28" r="18" fill="none" stroke="#C9A227" stroke-width="1.5"/>
+            <polygon points="40,14 43,22 51,22 45,27 47,35 40,30 33,35 35,27 29,22 37,22" fill="#C9A227" opacity="0.7"/>
+          </svg>
+          <span style="font-size: 12px; color: #5A5070;">Imperial seal artwork — upload your art</span>
+        </div>
+        <div class="gallery-caption">
+          <strong>Imperial Imagery</strong>
+          Official artwork and cultural works
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section class="documents-section" id="documents">
+  <div class="section-inner">
+    <p class="section-label">Official Records</p>
+    <h2 class="section-title">Documents & Laws</h2>
+    <div class="title-rule"></div>
+    <div class="doc-list">
+      <a class="doc-item" href="#">
+        <div class="doc-icon">📜</div>
+        <div class="doc-meta">
+          <div class="doc-title">Principal Articles of Aarman</div>
+          <div class="doc-desc">The founding document of the Grand Imperial Republic — rights, governance, and the imperial covenant</div>
+        </div>
+        <span class="doc-tag">Constitution</span>
+      </a>
+      <a class="doc-item" href="#">
+        <div class="doc-icon">⚖️</div>
+        <div class="doc-meta">
+          <div class="doc-title">Imperial Code of Law</div>
+          <div class="doc-desc">Consolidated legal statutes governing citizens, institutions, and conduct within Aarman</div>
+        </div>
+        <span class="doc-tag">Law</span>
+      </a>
+      <a class="doc-item" href="#">
+        <div class="doc-icon">📋</div>
+        <div class="doc-meta">
+          <div class="doc-title">Imperial Decrees — Volume I</div>
+          <div class="doc-desc">Official proclamations and edicts issued by the Emperor</div>
+        </div>
+        <span class="doc-tag">Decree</span>
+      </a>
+      <a class="doc-item" href="#">
+        <div class="doc-icon">🤝</div>
+        <div class="doc-meta">
+          <div class="doc-title">Treaties & International Agreements</div>
+          <div class="doc-desc">Formal agreements between Aarman and foreign nations or organisations</div>
+        </div>
+        <span class="doc-tag">Treaty</span>
+      </a>
+      <a class="doc-item" href="#">
+        <div class="doc-icon">🗺️</div>
+        <div class="doc-meta">
+          <div class="doc-title">Official Maps & Territorial Records</div>
+          <div class="doc-desc">Geographic surveys, boundary definitions, and regional administrative maps</div>
+        </div>
+        <span class="doc-tag">Geographic</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="articles-section" id="articles">
+  <div class="section-inner">
+    <p class="section-label">News & Scholarship</p>
+    <h2 class="section-title">Articles</h2>
+    <div class="title-rule"></div>
+    <div class="articles-grid">
+      <div class="article-card">
+        <div class="article-category">History</div>
+        <div class="article-title">The Founding of the Imperial Republic: Origins of Aarman</div>
+        <div class="article-excerpt">A historical account of how the Grand Imperial Republic came to be — the events, figures, and decisions that shaped a nation.</div>
+        <div class="article-date">Add your founding lore here</div>
+      </div>
+      <div class="article-card">
+        <div class="article-category">Culture</div>
+        <div class="article-title">Gold, Indigo & White: The Symbolism of Aarman's Colors</div>
+        <div class="article-excerpt">An exploration of the meaning behind the national colors — the Emperor, the people, and the unity that binds them.</div>
+        <div class="article-date">Add your cultural articles here</div>
+      </div>
+      <div class="article-card">
+        <div class="article-category">Governance</div>
+        <div class="article-title">The Imperial-Republican Covenant: How Aarman Is Governed</div>
+        <div class="article-excerpt">An overview of the unique governmental structure of Aarman — balancing imperial authority with republican representation.</div>
+        <div class="article-date">Add your governance articles here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section class="links-section" id="links">
+  <div class="section-inner">
+    <p class="section-label">External Resources</p>
+    <h2 class="section-title">Links & Resources</h2>
+    <div class="title-rule"></div>
+    <div class="links-grid">
+      <a class="link-card" href="https://nationstates.net/aarman" target="_blank">
+        <div class="link-name">Official Wiki</div>
+        <div class="link-desc">Comprehensive lore, history, and world-building records</div>
+      </a>
+      <a class="link-card" href="#">
+        <div class="link-name">Community Forum</div>
+        <div class="link-desc">Discussions, proposals, and citizen engagement</div>
+      </a>
+      <a class="link-card" href="#">
+        <div class="link-name">Image Archive</div>
+        <div class="link-desc">Full gallery of maps, flags, and imperial imagery</div>
+      </a>
+      <a class="link-card" href="#">
+        <div class="link-name">Document Repository</div>
+        <div class="link-desc">Full archive of laws, decrees, and official records</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Grand Imperial Republic of Aarman</div>
+  <div style="font-size: 12px; margin: 0.5rem 0; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase;">Gold · Indigo · White</div>
+  <div>Official web presence of the Grand Imperial Republic of Aarman</div>
+  <div style="margin-top: 0.5rem; font-size: 12px; opacity: 0.5;">All rights reserved — Aarman</div>
+</footer>
+
+</body>
+</html>

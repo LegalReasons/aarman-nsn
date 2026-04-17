@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Principal Articles of Aarman</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A227;
+    --gold-light: #F0D060;
+    --gold-dark: #8B6F14;
+    --gold-bg: #FDF6E3;
+    --indigo: #3B2D8F;
+    --indigo-light: #6B5BD6;
+    --indigo-dark: #1E164A;
+    --indigo-bg: #ECEAFE;
+    --white: #FFFFFF;
+    --off-white: #F9F7F0;
+    --text: #1A1530;
+    --text-muted: #5A5070;
+    --border: rgba(59,45,143,0.15);
+  }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.85;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--indigo-dark);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    border-bottom: 2px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    font-family: Georgia, serif;
+    text-decoration: none;
+  }
+  .nav-back {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--gold-light); }
+
+  /* HEADER */
+  .doc-header {
+    background: var(--indigo-dark);
+    color: white;
+    text-align: center;
+    padding: 3.5rem 2rem 3rem;
+    border-bottom: 3px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,162,39,0.04) 40px, rgba(201,162,39,0.04) 80px);
+  }
+  .doc-tag-header {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+  }
+  .doc-header h1 {
+    font-size: clamp(22px, 4vw, 40px);
+    font-weight: normal;
+    letter-spacing: 0.04em;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .doc-header h1 em { color: var(--gold-light); font-style: normal; }
+  .header-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .doc-header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* LAYOUT */
+  .page-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .page-layout { grid-template-columns: 1fr; }
+    .toc { display: none; }
+  }
+
+  /* TABLE OF CONTENTS */
+  .toc {
+    position: sticky;
+    top: 72px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-top: 2px solid var(--gold);
+    padding: 1.25rem;
+  }
+  .toc-title {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.75rem;
+  }
+  .toc-list { list-style: none; }
+  .toc-list li { margin-bottom: 0px; }
+  .toc-list a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    display: block;
+    padding: 4px 0;
+    border-left: 2px solid transparent;
+    padding-left: 8px;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .toc-list a:hover {
+    color: var(--indigo);
+    border-left-color: var(--gold);
+  }
+
+  /* DOCUMENT BODY */
+  .doc-body { min-width: 0; }
+
+  /* PREAMBLE */
+  .preamble {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.75rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .preamble-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+    margin-bottom: 1rem;
+  }
+  .preamble p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.9;
+    font-style: italic;
+    margin-bottom: 0.85rem;
+  }
+  .preamble p:last-child { margin-bottom: 0; }
+  .preamble .closing {
+    font-size: 15px;
+    color: var(--indigo-dark);
+    font-style: normal;
+    font-weight: bold;
+    border-top: 0.5px solid var(--border);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ARTICLES */
+  .article {
+    background: white;
+    border: 0.5px solid var(--border);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .article-header {
+    background: var(--indigo-dark);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .article-num {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
+  }
+  .article-title-text {
+    font-size: 17px;
+    font-weight: normal;
+    color: white;
+    letter-spacing: 0.02em;
+  }
+  .article-body { padding: 1.5rem; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 1.5rem; }
+  .section:last-child { margin-bottom: 0; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
+  }
+  .section-name {
+    font-size: 13px;
+    color: var(--indigo);
+    font-family: Arial, sans-serif;
+    font-style: italic;
+  }
+  .section p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 0.75rem;
+  }
+  .section p:last-child { margin-bottom: 0; }
+  .section ul {
+    list-style: none;
+    margin: 0.5rem 0 0.75rem 0;
+    padding: 0;
+  }
+  .section ul li {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.9;
+    padding: 0.2rem 0 0.2rem 1.25rem;
+    position: relative;
+  }
+  .section ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 13px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--indigo-dark);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border-top: 2px solid var(--gold);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-top: 2rem;
+  }
+  footer .footer-name {
+    color: var(--gold-light);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    margin-bottom: 0.25rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">Grand Imperial Republic of Aarman</a>
+  <a class="nav-back" href="#">&#8592; Back to Home</a>
+</nav>
+
+<header class="doc-header">
+  <p class="doc-tag-header">Official Constitutional Document</p>
+  <h1>Principal Articles<br>of <em>Aarman</em></h1>
+  <div class="header-divider"></div>
+  <p>The founding law of the Grand Imperial Republic</p>
+</header>
+
+<div class="page-layout">
+
+  <!-- TABLE OF CONTENTS -->
+  <aside class="toc">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#preamble">Preamble</a></li>
+      <li><a href="#art1">I — Sovereignty</a></li>
+      <li><a href="#art2">II — The Emperor</a></li>
+      <li><a href="#art3">III — Executive Authority</a></li>
+      <li><a href="#art4">IV — Rights</a></li>
+      <li><a href="#art5">V — Imperial Assembly</a></li>
+      <li><a href="#art6">VI — Judiciary</a></li>
+      <li><a href="#art7">VII — Provinces</a></li>
+      <li><a href="#art8">VIII — War & Service</a></li>
+      <li><a href="#art9">IX — Definitions</a></li>
+    </ul>
+  </aside>
+
+  <!-- DOCUMENT BODY -->
+  <main class="doc-body">
+
+    <!-- PREAMBLE -->
+    <div class="preamble" id="preamble">
+      <div class="preamble-label">Preamble</div>
+      <p>We, the people of Aarman, acknowledging the dignity of ordered sovereignty and the benefit of an Emperor, do recognize, faithfully serve, and bear true allegiance to the Throne and its lawful heirs and successors.</p>
+      <p>I, the Emperor of Aarman, acknowledging the power and rights of the people, do pledge to govern in fidelity, to defend and protect the Empire, to safeguard the fundamental and recognized rights secured under its laws, and to uphold these Principal Articles.</p>
+      <p class="closing">With mutual understanding and enduring commitment, we establish and ordain these Principal Articles of Aarman.</p>
+    </div>
+
+    <!-- ARTICLE I -->
+    <div class="article" id="art1">
+      <div class="article-header">
+        <span class="article-num">Article I</span>
+        <span class="article-title-text">Of Sovereignty and Imperial Authority</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>The Empire of Aarman is sovereign and indivisible. Sovereignty inheres in the person of the Emperor, who embodies the State and from whom all authority proceeds.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>These Principal Articles establish the structure through which imperial sovereignty is exercised, delegated, and administered. Governance, according to these Articles, sustains the order, continuity, and legitimacy of the Empire.</p>
+          <p>These Articles, laws enacted under their authority, treaties made under the authority of the Emperor, and binding decisions of the courts shall constitute the supreme law of the Empire. Judges throughout the Empire shall be bound thereby, notwithstanding any provincial constitution or law to the contrary.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>The Emperor may, by formal Declaration of Imperial Exception, suspend the operation of these Articles in whole, or suspend any Article or collection of Articles in their entirety. Such a declaration shall be delivered in person before the Imperial Assembly, publicly witnessed, and shall specify a defined duration measured in years. It shall expire on the day and at the hours declared, unless renewed by a subsequent declaration.</p>
+          <p>Subdivisions of Articles shall not be suspended independently. Upon Declaration, Provincial Envoys shall transmit the terms of the Exception to their respective Provinces.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE II -->
+    <div class="article" id="art2">
+      <div class="article-header">
+        <span class="article-num">Article II</span>
+        <span class="article-title-text">Of the Emperor and the Continuity of the Throne</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>The Emperor is the sovereign head of the Empire and embodies its unity and authority. Imperial dignity is singular and indivisible.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>Succession to the Imperial Throne shall be by direct descent. A child of the Emperor, whether by birth or lawful adoption as acknowledged by the Prime Court, is eligible to stand in the line of succession. The Emperor shall designate from among their eligible children the successor to the Throne.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>Designation of the successor shall be formally recorded and shall not attain constitutional legitimacy until acknowledged by the Imperial Assembly. The Emperor may alter the designation at will; any alteration shall likewise require acknowledgment.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>The Prime Court shall promulgate findings concerning the health, fitness, and continuity of eligible children of the Emperor in accordance with law. Such findings shall inform the security of succession but shall not invalidate the designation.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>The Emperor shall abdicate upon attaining seventy years of age. Abdication and the immediate ascension of the designated successor shall occur automatically at noon on the birthday, without interval or vacancy. Coronation rites may be performed thereafter according to tradition.</p>
+          <p>If, at the time of abdication or death, the designation of successor has not been formally acknowledged by the Imperial Assembly and duly recorded according to law, the Primarium shall assume custodial authority as provided herein until acknowledgment and recording are completed, whereupon ascension shall be recognized without retroactive interruption of sovereignty.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>In the absence of a direct issue, the Emperor may designate as successor a Provincial Governor. Should the Throne become vacant without an eligible child or designation, the Provincial Governors shall immediately assemble in conclave within the Imperial Capital and elect from among themselves a successor in view of the Prime Court. No conclave shall adjourn, nor any governor depart until a successor is chosen. The elected Emperor shall found a new direct line of succession.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 7</span></div>
+          <p>During any interregnum, whether by failure of direct issue, absence of acknowledgment, or vacancy of the Throne, the Primarium shall serve collectively as custodians of imperial administration. Custodial authority shall be limited to preservation of order, continuity of governance, and execution of existing law, and shall not extend to permanent alteration of constitutional structure.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 8</span></div>
+          <p>Members of the Imperial Assembly, officers of the imperial government, and officers of provincial authorities shall be bound by affirmation to serve and support the Emperor and these Principal Articles.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE III -->
+    <div class="article" id="art3">
+      <div class="article-header">
+        <span class="article-num">Article III</span>
+        <span class="article-title-text">Of Executive Authority and Imperial Administration</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>Executive authority of the Empire shall be vested in the Emperor and shall be exercised directly or through officers duly appointed in accordance with these Articles. Acts undertaken within lawful delegation shall possess full force and effect without the necessity of personal imperial issuance.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>The Emperor shall nominate Primars to oversee the principal departments and offices of imperial administration. No Primar shall assume office without confirmation by the Republican Senate.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>Four years following confirmation, each Primar shall be subject to retention. Upon such occasion, the Emperor may nominate a successor, subject to confirmation, or may decline to nominate. If no successor is nominated, the Republican Senate shall determine whether the incumbent Primar shall continue in office. A Primar failing retention shall not be eligible for immediate reconsideration.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>Primars shall not be dismissed at will. Removal before retention may occur only by impeachment. The House of Delegates shall possess sole authority to bring charges of misconduct or wrongdoing. The Republican Senate shall conduct a trial. Upon conviction, penalties may include removal from office, ineligibility for imperial office, fines, or referral for criminal prosecution as provided by law.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>The Emperor may establish and organize departments and offices necessary for the defense, administration, stewardship, and governance of the Empire, including matters of security, statecraft, domestic and foreign affairs, public health, custodianship of lands and peoples, and the preservation of imperial order. Such departments shall operate under delegated authority and shall administer law independently within their lawful scope.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>Treaties and international agreements shall be made under the authority of the Emperor on behalf of the Empire. They shall become binding upon ratification by two-thirds of the Republican Senate. Such treaties shall remain in force in accordance with their terms unless lawfully withdrawn or superseded.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 7</span></div>
+          <p>Nothing herein shall limit the prerogative of the Emperor to intervene in executive administration in accordance with law.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 8</span></div>
+          <p>Extraordinary executive powers and the conditions for their exercise, short of a Declaration of Imperial Exception, shall be defined by law enacted by the Imperial Assembly.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE IV -->
+    <div class="article" id="art4">
+      <div class="article-header">
+        <span class="article-num">Article IV</span>
+        <span class="article-title-text">Of Subjects, Citizens, and Secured Rights</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>All persons within the jurisdiction of the Empire are subjects and are entitled to its protection and bound to its laws. Citizens are subjects possessing civic standing as defined by law.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>Citizenship shall be acquired, regulated, and revoked in accordance with law. No citizenship shall be stripped except through due process.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>Slavery and involuntary servitude in all forms are prohibited.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>Rights, liberties, status, and responsibilities shall not be denied or abridged on account of race, color, religion, sex, age, origin, belief, opinion, or any characteristic from which prejudice or hatred may arise.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>All persons possess the right to life and bodily security.</p>
+          <p>The right of personal defense and defense of property shall be recognized by law.</p>
+          <p>The means of defense may be regulated, provided the right itself is not extinguished.</p>
+          <p>No excessive bail, fine, or unusual punishment shall be imposed.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>No person shall be deprived of life, liberty, status, or property without due process of law.</p>
+          <p>In criminal proceedings, the accused shall be informed of the nature and cause of the accusation, confronted with witnesses, afforded process to obtain witnesses, provided assistance of counsel, and tried publicly within a reasonable time in the Province and division of the alleged violation.</p>
+          <p>No person shall be compelled to testify against themselves.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 7</span></div>
+          <p>The right of persons to security in their person, residence, effects, and information against arbitrary intrusion or seizure shall be protected. Property may be taken for public use with just compensation. No person shall be compelled to identify themselves absent a lawful arrest or judicial order.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 8</span></div>
+          <p>All persons possess the right to expression, conscience, religion or absence thereof, peaceful assembly, press, and petition to lawful authority.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 9</span></div>
+          <p>Citizens shall possess the right to participate in civic processes, including voting upon attaining eighteen years of age, subject to regulation by law.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 10</span></div>
+          <p>All persons lawfully within the Empire shall be free to travel within its jurisdiction.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 11</span></div>
+          <p>The enumeration of rights herein shall not be construed to deny or disparage other rights inherent to human dignity or logically implied by these Articles. These rights bind all provincial and local authorities.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 12</span></div>
+          <p>Any person serving in imperial office who attains seventy years of age shall be removed from such office and shall thereafter be ineligible to hold an office in the imperial government.</p>
+          <p>Any person who attains seventy years of age while in office may complete the term to which they were elected or appointed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE V -->
+    <div class="article" id="art5">
+      <div class="article-header">
+        <span class="article-num">Article V</span>
+        <span class="article-title-text">Of the Imperial Assembly</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>Legislative authority of the Empire shall be exercised by an Imperial Assembly composed of a House of Delegates and a Republican Senate.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>The House of Delegates shall be composed of Delegates elected every three years by citizens of their respective districts. No person shall serve as Delegate unless twenty years of age and a citizen and resident of Aarman and the Province represented for eight years.</p>
+          <p>Delegates shall be apportioned among the provinces according to citizen population aged eighteen years and older, as determined by a census conducted every twelve years in such manner as law directs. Each Province shall have at least one Delegate. Districts shall not cross provincial boundaries.</p>
+          <p>The House shall choose from among its members a President who shall preside over its proceedings.</p>
+          <p>The House shall possess sole authority of impeachment of all elected and appointed officers of the imperial government.</p>
+          <p>All bills for the budget and raising revenue shall originate in the House, and the Senate may propose or concur with amendments.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>The Republican Senate shall be composed of two Senators from each Province, chosen at large in such manner as provincial law provides, serving staggered six-year terms. No person shall serve as Senator unless thirty years of age and has always been a citizen and resident of Aarman and the Province represented.</p>
+          <p>The Senate shall choose from among its members a Provost who shall preside over its proceedings.</p>
+          <p>The Senate shall confirm nominations as required by these Articles and shall try impeachments.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>The times, places, and manner of elections shall be prescribed by provincial legislatures, subject to alteration by law of the Imperial Assembly.</p>
+          <p>Each chamber shall judge the elections and qualifications of its members, determine its rules, punish disorderly conduct, and, with the concurrence of two-thirds, expel a member.</p>
+          <p>A majority shall constitute a quorum.</p>
+          <p>Each chamber shall keep and publish a journal of proceedings, excepting such parts as require secrecy.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>Members shall receive compensation by law from the imperial treasury.</p>
+          <p>No member shall hold other imperial, provincial, or private office during their term.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>Bills passed by both chambers shall be presented to the Emperor. If approved, they shall be signed into law. If returned with objections, the originating chamber shall reconsider. Upon concurrence of two-thirds of both chambers, the bill shall become law notwithstanding objection.</p>
+          <p>If not returned within fourteen days, the bill shall become law.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 7</span></div>
+          <p>The Assembly shall have authority to:</p>
+          <ul>
+            <li>Levy taxes, duties, tariffs, excises, and other uniform revenues.</li>
+            <li>Regulate commerce within the Empire and with foreign states.</li>
+            <li>Establish uniform rules of naturalization and finance.</li>
+            <li>Coin money and regulate currency.</li>
+            <li>Establish inferior courts.</li>
+            <li>Declare war and regulate the uniformed services.</li>
+            <li>Provide for defense and internal order.</li>
+            <li>Promote science and useful arts.</li>
+            <li>Exercise exclusive legislation over imperial military and strategic sites.</li>
+            <li>Enact all laws necessary and proper to carry into execution the powers vested in the imperial government.</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 8</span></div>
+          <p>The Empire shall not borrow money upon its credit.</p>
+          <p>No funds shall be drawn from the imperial treasury except by appropriation of law.</p>
+          <p>A public account of receipts and expenditures shall be published annually.</p>
+          <p>The Assembly shall have authority to define by law conditions of public emergency, procedures for their declaration, and temporary expansion of executive power necessary for the preservation of order, defense, or stability of the Empire. Such laws shall specify duration, scope, and limitations. No such law shall suspend the Principal Articles, the power of which remains reserved to the Emperor through the Declaration of Imperial Exception.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 9</span></div>
+          <p>No retroactive criminal law shall be enacted.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 10</span></div>
+          <p>The House and the Senate, whenever two-thirds of each chamber deem it necessary, shall propose amendments to these Articles. Proposed amendments shall be transmitted to the several provinces for consideration and shall become part of these Articles upon ratification by three-fourths of the total provinces. If ratification is not achieved within ten years of proposal, the amendment shall fail and be void.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE VI -->
+    <div class="article" id="art6">
+      <div class="article-header">
+        <span class="article-num">Article VI</span>
+        <span class="article-title-text">Of the Judiciary</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>Judicial authority of the Empire shall be vested in one Prime Court and in such inferior courts as the Imperial Assembly may establish.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>The Prime Court shall be the final interpreter of these Principal Articles, of laws enacted under their authority, and of treaties made under the authority of the Emperor. It shall possess authority to review and invalidate legislation, executive action, and administrative measures found inconsistent with these Articles.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>Judges of the Prime Court and of the inferior imperial courts shall be nominated by the Emperor and confirmed by the Republican Senate. They shall be in tenure subject to removal by impeachment and retirement at seventy years of age.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>The number of judges serving in any imperial court shall be established by law. Inferior courts shall operate under the appellate supervision of the Prime Court.</p>
+          <p>The Prime Court may convene within the Imperial Capital or elsewhere within the Empire as required for the administration of justice.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>Provincial and territorial judicial bodies shall exercise authority within their jurisdictions, subject to the supremacy of these Articles and review by imperial courts where provided by law.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>Courts of the Empire may interpret law, establish binding precedent, and adjudicate disputes arising under these Articles, imperial law, emergency statutes, and treaties. Judicial decisions shall bind all authorities within the Empire.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE VII -->
+    <div class="article" id="art7">
+      <div class="article-header">
+        <span class="article-num">Article VII</span>
+        <span class="article-title-text">Of the Provinces</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>The Provinces are foundational self-governing divisions. Each Province shall maintain its own constitution and shall exercise legislative, executive, and judicial authority within its domestic jurisdiction.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>Domestic authority of the Provinces is recognized and protected under these Principal Articles and is exercised in accordance with imperial supremacy. Powers not vested in the imperial government by these Articles remain with the Provinces or the people thereof.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>Each Province shall maintain participatory and representative governance in the form provided for in its constitution. Diversity in internal governmental structures is permitted, provided that the rights secured under these Articles are preserved.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>New Provinces may be admitted by law of the Imperial Assembly with the assent of the Emperor upon approval of their constitutions. No alteration of provincial boundaries, transfer of territory, or cession of land shall occur without imperial authorization.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>No Province shall:</p>
+          <ul>
+            <li>Enter into a treaty, alliance, or confederation.</li>
+            <li>Grant letters of marque or reprisal.</li>
+            <li>Coin money or emit currency.</li>
+            <li>Pass bills of attainder or ex post facto criminal laws.</li>
+            <li>Impair lawful contractual obligations.</li>
+          </ul>
+          <p>No Province shall, without consent of the Imperial Assembly and assent of the Emperor:</p>
+          <ul>
+            <li>Maintain troops or ships of war in time of war or peace.</li>
+            <li>Enter into agreements or compacts with another Province or foreign power.</li>
+            <li>Engage in war except in case of actual invasion or imminent danger, not admitting delay.</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>Full faith and credit shall be given in each Province to the public acts, records, and judicial proceedings of every other Province. The Imperial Assembly may prescribe by general law the manner of proof and effect thereof.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 7</span></div>
+          <p>Citizens of each Province shall be entitled to the privileges and immunities of citizens in every other Province when present therein.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 8</span></div>
+          <p>No Province may secede from the Empire.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE VIII -->
+    <div class="article" id="art8">
+      <div class="article-header">
+        <span class="article-num">Article VIII</span>
+        <span class="article-title-text">Of War and Uniformed Service</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>The Empire shall maintain uniformed services upon land, water, air, or other domains as necessary for defense, preservation of order, execution of foreign and domestic policy, and conduct of war when lawfully authorized.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>The Emperor shall serve as Supreme Commander of the uniformed services.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 3</span></div>
+          <p>The organization, funding, regulation, and governance of the uniformed services shall be determined by law enacted by the Imperial Assembly.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 4</span></div>
+          <p>The sole authority to declare war against a foreign state or organized hostile entity shall reside in the Assembly. Such a declaration shall not require the assent or signature of the Emperor.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 5</span></div>
+          <p>Major military operations not rising to a formal declaration of war shall require approval of the Republican Senate. The House of Delegates may deliberate upon such matters and oversee the proceedings, but shall not vote upon approval. Approval shall be presented to the Emperor for signature.</p>
+          <p>The Emperor may act to repel a sudden attack, subject to prompt notification of the Assembly.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 6</span></div>
+          <p>In declaring war or approving military operations, the Assembly may establish guiding conditions and operational principles to which the Emperor and the uniformed services shall give due regard in their execution.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 7</span></div>
+          <p>Authorization of military operations shall not be construed to appropriate funds or alter fiscal measures except through separate legislation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE IX -->
+    <div class="article" id="art9">
+      <div class="article-header">
+        <span class="article-num">Article IX</span>
+        <span class="article-title-text">Of Definitions and Operation</span>
+      </div>
+      <div class="article-body">
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 1</span></div>
+          <p>Definitions and terms may be defined by law, provided such definitions do not conflict with these Articles.</p>
+        </div>
+        <div class="section">
+          <div class="section-header"><span class="section-num">Section 2</span></div>
+          <p>These Articles shall take effect upon their formal proclamation by the Emperor.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-name">Grand Imperial Republic of Aarman</div>
+  <div style="font-size: 12px; margin: 0.5rem 0; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase;">Gold · Indigo · White</div>
+  <div>Principal Articles of Aarman — Supreme Law of the Empire</div>
+  <div style="margin-top: 0.5rem; font-size: 12px; opacity: 0.5;">All rights reserved — Aarman</div>
+</footer>
+
+</body>
+</html>
