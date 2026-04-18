@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lamb Palace — Office of Emperor Shane I</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #C9A227;
+    --gold-light: #F0D060;
+    --gold-dark: #8B6F14;
+    --gold-bg: #FDF6E3;
+    --granite: #C17A7A;
+    --granite-light: #E8B4B4;
+    --granite-dark: #7A3B3B;
+    --granite-bg: #F7EDED;
+    --slate: #5B7A9D;
+    --slate-light: #A3BDD4;
+    --slate-dark: #2C4A6B;
+    --slate-bg: #EAF0F6;
+    --crimson: #8B1A1A;
+    --crimson-light: #C44A4A;
+    --crimson-dark: #5A0E0E;
+    --crimson-bg: #F9EDED;
+    --purple: #4A1A7A;
+    --purple-light: #8B5ABD;
+    --purple-dark: #2C0A4A;
+    --purple-bg: #F0EAF7;
+    --white: #FFFFFF;
+    --off-white: #F8F5F0;
+    --text: #1A1410;
+    --text-muted: #5A5050;
+    --border: rgba(90,60,40,0.12);
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    background: #1A0F0F;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .nav-seal {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+  .nav-brand {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    font-family: Georgia, serif;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    font-family: Arial, sans-serif;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    background: #1A0F0F;
+    color: white;
+    padding: 5rem 2rem 4.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--gold);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 50px,
+      rgba(193,122,122,0.04) 50px,
+      rgba(193,122,122,0.04) 100px
+    );
+  }
+  .hero-seal {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--granite);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4vw, 52px);
+    font-weight: normal;
+    color: white;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: normal; }
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1.5rem auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-title-full {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    letter-spacing: 0.04em;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: #1A0F0F;
+    border: none;
+    padding: 0.65rem 1.75rem;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 0.65rem 1.75rem;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  /* ANNOUNCEMENT BANNER */
+  .announcement {
+    background: var(--crimson-dark);
+    border-bottom: 1px solid var(--crimson);
+    padding: 0.6rem 2rem;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.04em;
+  }
+  .announcement strong { color: var(--gold-light); }
+
+  /* SECTIONS */
+  section { padding: 4rem 1.5rem; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: normal;
+    color: #1A0F0F;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .title-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  .title-rule.crimson { background: var(--crimson); }
+  .title-rule.slate { background: var(--slate); }
+
+  /* EMPEROR SECTION */
+  .emperor-section { background: white; }
+  .emperor-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 640px) { .emperor-grid { grid-template-columns: 1fr; } }
+  .emperor-portrait {
+    background: #1A0F0F;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .emperor-portrait svg { opacity: 0.6; }
+  .emperor-portrait span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .emperor-info h3 {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.5rem;
+  }
+  .emperor-name {
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: normal;
+    color: #1A0F0F;
+    margin-bottom: 0.25rem;
+  }
+  .emperor-full-title {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .emperor-bio p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+  .emperor-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .e-stat {
+    padding: 0.75rem 1rem;
+    background: var(--off-white);
+    border-left: 2px solid var(--gold);
+  }
+  .e-stat-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+    margin-bottom: 3px;
+  }
+  .e-stat-value {
+    font-size: 14px;
+    color: #1A0F0F;
+    font-family: Arial, sans-serif;
+  }
+
+  /* NEWS */
+  .news-section { background: var(--off-white); }
+  .news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 700px) { .news-grid { grid-template-columns: 1fr; } }
+  .news-featured {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-top: 3px solid var(--crimson);
+    overflow: hidden;
+  }
+  .news-featured-img {
+    background: #1A0F0F;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .news-featured-body { padding: 1.5rem; }
+  .news-category {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    margin-bottom: 0.5rem;
+  }
+  .news-category.imperial { color: var(--crimson); }
+  .news-category.palace { color: var(--slate); }
+  .news-category.foreign { color: var(--purple-light); }
+  .news-featured-title {
+    font-size: 20px;
+    color: #1A0F0F;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+  }
+  .news-featured-excerpt {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-family: Arial, sans-serif;
+  }
+  .news-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 0.5px solid var(--border);
+  }
+  .news-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .news-item {
+    background: white;
+    border: 0.5px solid var(--border);
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    border-left: 2px solid var(--slate);
+  }
+  .news-item:hover { border-color: var(--gold); border-left-color: var(--gold); }
+  .news-item-title {
+    font-size: 14px;
+    color: #1A0F0F;
+    line-height: 1.45;
+    margin-bottom: 0.4rem;
+  }
+  .news-item-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+  }
+
+  /* PALACE */
+  .palace-section { background: white; }
+  .palace-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 640px) { .palace-grid { grid-template-columns: 1fr; } }
+  .palace-text p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+  .palace-facts { display: flex; flex-direction: column; gap: 0.75rem; }
+  .palace-fact {
+    padding: 1rem 1.25rem;
+    background: var(--granite-bg);
+    border-left: 2px solid var(--granite);
+  }
+  .palace-fact-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--granite-dark);
+    font-family: Arial, sans-serif;
+    margin-bottom: 3px;
+  }
+  .palace-fact-value {
+    font-size: 14px;
+    color: #1A0F0F;
+    font-family: Arial, sans-serif;
+  }
+
+  /* PRIORITIES */
+  .priorities-section { background: var(--slate-bg); }
+  .priorities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 0;
+  }
+  .priority-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    padding: 1.5rem;
+    border-top: 3px solid var(--slate);
+  }
+  .priority-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--slate-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    font-size: 18px;
+  }
+  .priority-title {
+    font-size: 15px;
+    color: #1A0F0F;
+    margin-bottom: 0.5rem;
+  }
+  .priority-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #1A0F0F;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border-top: 2px solid var(--gold);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 2;
+  }
+  footer .footer-name {
+    color: var(--gold-light);
+    font-family: Georgia, serif;
+    font-size: 16px;
+  }
+  footer .footer-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BANNER -->
+<div class="announcement">
+  <strong>Imperial Notice:</strong> Emperor Shane I will address the Imperial Assembly on matters of provincial governance. Date to be announced.
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <svg class="nav-seal" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="15" fill="none" stroke="#C9A227" stroke-width="1"/>
+      <circle cx="16" cy="16" r="11" fill="#2C0A0A" stroke="#C9A227" stroke-width="0.5"/>
+      <polygon points="16,7 17.5,12 22,12 18.5,15 20,20 16,17 12,20 13.5,15 10,12 14.5,12" fill="#C9A227"/>
+    </svg>
+    <span class="nav-brand">Lamb Palace</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#emperor">The Emperor</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#palace">The Palace</a></li>
+    <li><a href="#priorities">Priorities</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <!-- Palace Seal -->
+  <div class="hero-seal">
+    <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" width="110" height="110">
+      <circle cx="55" cy="55" r="53" fill="none" stroke="#C9A227" stroke-width="1.5"/>
+      <circle cx="55" cy="55" r="45" fill="#2C0A0A" stroke="#C9A227" stroke-width="0.75"/>
+      <!-- Lamb silhouette -->
+      <ellipse cx="55" cy="60" rx="16" ry="11" fill="#C9A227" opacity="0.85"/>
+      <circle cx="55" cy="46" r="8" fill="#C9A227" opacity="0.85"/>
+      <!-- Legs -->
+      <rect x="44" y="69" width="4" height="9" rx="2" fill="#C9A227" opacity="0.85"/>
+      <rect x="51" y="70" width="4" height="9" rx="2" fill="#C9A227" opacity="0.85"/>
+      <rect x="58" y="70" width="4" height="9" rx="2" fill="#C9A227" opacity="0.85"/>
+      <rect x="65" y="69" width="4" height="9" rx="2" fill="#C9A227" opacity="0.85"/>
+      <!-- Ear -->
+      <ellipse cx="48" cy="43" rx="4" ry="6" fill="#C9A227" opacity="0.85" transform="rotate(-20 48 43)"/>
+      <!-- Stars arc top -->
+      <circle cx="55" cy="10" r="2.5" fill="#C9A227"/>
+      <circle cx="35" cy="17" r="2" fill="#C9A227" opacity="0.7"/>
+      <circle cx="75" cy="17" r="2" fill="#C9A227" opacity="0.7"/>
+      <!-- Text arc -->
+      <path id="pArc" d="M15,55 a40,40 0 0,1 80,0" fill="none"/>
+      <path id="bArc" d="M17,62 a40,40 0 0,0 76,0" fill="none"/>
+      <text font-family="Georgia,serif" font-size="7" fill="#C9A227" letter-spacing="1.8">
+        <textPath href="#pArc" startOffset="50%" text-anchor="middle">LAMB PALACE · SHANDRIA</textPath>
+      </text>
+      <text font-family="Georgia,serif" font-size="6.5" fill="#C9A227" letter-spacing="1.5" opacity="0.7">
+        <textPath href="#bArc" startOffset="50%" text-anchor="middle">OFFICE OF THE EMPEROR</textPath>
+      </text>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">Official Residence & Executive Office</p>
+  <h1>Lamb <em>Palace</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-title-full">Seat of His Imperial Majesty, Shane the First, Emperor of the Grand Imperial Republic of Aarman,<br>Shepherd of its Lands and Peoples, Issue of the Great House of Lamb,<br>Bearer of the Celestial Patronage of Venus</p>
+  <div class="hero-cta">
+    <a class="btn-gold" href="#emperor">The Emperor</a>
+    <a class="btn-outline" href="#news">Latest News</a>
+  </div>
+</header>
+
+<!-- EMPEROR -->
+<section class="emperor-section" id="emperor">
+  <div class="section-inner">
+    <p class="section-label">Head of State</p>
+    <h2 class="section-title">Emperor Shane I</h2>
+    <div class="title-rule"></div>
+    <div class="emperor-grid">
+      <div class="emperor-portrait">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="18" r="10" stroke="#C9A227" stroke-width="1.5"/>
+          <path d="M6 42 Q6 30 24 30 Q42 30 42 42" stroke="#C9A227" stroke-width="1.5" fill="none"/>
+          <!-- Crown -->
+          <polyline points="14,12 17,7 20,10 24,5 28,10 31,7 34,12" stroke="#C9A227" stroke-width="1.5" fill="none"/>
+        </svg>
+        <span>Portrait placeholder</span>
+      </div>
+      <div class="emperor-info">
+        <h3>His Imperial Majesty</h3>
+        <div class="emperor-name">Emperor Shane I</div>
+        <div class="emperor-full-title">His Imperial Majesty, Shane the First, Emperor of the Grand Imperial Republic of Aarman, Shepherd of its Lands and Peoples, Issue of the Great House of Lamb, Bearer of the Celestial Patronage of Venus</div>
+        <div class="emperor-bio">
+          <p>Emperor Shane I is the reigning sovereign of the Grand Imperial Republic of Aarman, head of the ancient and storied House of Lamb, whose lineage has shaped the Empire across generations. Ascending to the Throne in Shandria, Emperor Shane I has governed in the tradition of his forebears — firm in authority, faithful to the covenant between ruler and people enshrined in the Principal Articles.</p>
+          <p>His Imperial Majesty presides over the executive administration of the Empire from Lamb Palace, directing the Primarium, commanding the uniformed services, and conducting the foreign affairs of Aarman with the full dignity of the imperial office.</p>
+        </div>
+        <div class="emperor-stats">
+          <div class="e-stat">
+            <div class="e-stat-label">House</div>
+            <div class="e-stat-value">House of Lamb</div>
+          </div>
+          <div class="e-stat">
+            <div class="e-stat-label">Residence</div>
+            <div class="e-stat-value">Lamb Palace, Shandria</div>
+          </div>
+          <div class="e-stat">
+            <div class="e-stat-label">Role</div>
+            <div class="e-stat-value">Head of State & Supreme Commander</div>
+          </div>
+          <div class="e-stat">
+            <div class="e-stat-label">Celestial Patron</div>
+            <div class="e-stat-value">Venus</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section" id="news">
+  <div class="section-inner">
+    <p class="section-label">Imperial Communications</p>
+    <h2 class="section-title">News & Announcements</h2>
+    <div class="title-rule crimson"></div>
+    <div class="news-grid">
+      <div class="news-featured">
+        <div class="news-featured-img">
+          <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="50" height="30" rx="2" stroke="#C9A227" stroke-width="1" stroke-dasharray="3,2" opacity="0.4"/>
+            <circle cx="30" cy="20" r="8" stroke="#C9A227" stroke-width="1" opacity="0.4"/>
+            <line x1="30" y1="5" x2="30" y2="35" stroke="#C9A227" stroke-width="0.5" opacity="0.2"/>
+            <line x1="5" y1="20" x2="55" y2="20" stroke="#C9A227" stroke-width="0.5" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="news-featured-body">
+          <div class="news-category imperial">Imperial Address</div>
+          <div class="news-featured-title">Emperor Shane I Delivers Remarks on the Unity of the Empire at the Opening of the Imperial Assembly</div>
+          <div class="news-featured-excerpt">His Imperial Majesty addressed the assembled Delegates and Senators at the opening of the new legislative session, reaffirming the imperial covenant and calling for continued cooperation between the Throne and the Assembly in service of Aarman's people.</div>
+          <div class="news-date">Add your date here — Lamb Palace, Shandria</div>
+        </div>
+      </div>
+      <div class="news-sidebar">
+        <div class="news-item">
+          <div class="news-category palace">Palace</div>
+          <div class="news-item-title">Emperor Shane I Receives Foreign Delegation at Lamb Palace</div>
+          <div class="news-item-date">Add date here</div>
+        </div>
+        <div class="news-item">
+          <div class="news-category imperial">Imperial Decree</div>
+          <div class="news-item-title">New Imperial Decree Issued on Provincial Administrative Standards</div>
+          <div class="news-item-date">Add date here</div>
+        </div>
+        <div class="news-item">
+          <div class="news-category foreign">Foreign Affairs</div>
+          <div class="news-item-title">Aarman Enters Diplomatic Discussions on Trade and Regional Stability</div>
+          <div class="news-item-date">Add date here</div>
+        </div>
+        <div class="news-item">
+          <div class="news-category palace">Palace</div>
+          <div class="news-item-title">Annual Imperial Ceremony at Lamb Palace Commemorates Founding of Aarman</div>
+          <div class="news-item-date">Add date here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PALACE -->
+<section class="palace-section" id="palace">
+  <div class="section-inner">
+    <p class="section-label">Seat of the Throne</p>
+    <h2 class="section-title">Lamb Palace</h2>
+    <div class="title-rule"></div>
+    <div class="palace-grid">
+      <div class="palace-text">
+        <p>Lamb Palace stands at the heart of Shandria, the imperial capital of Aarman, as the official residence and principal executive office of the Emperor. Its soaring colonnades and grand ceremonial halls — hewn from the distinctive red and pink granite quarried from the mountains of the surrounding region — have made it one of the most recognizable structures in the Empire.</p>
+        <p>Constructed under a past Emperor of the House of Lamb, the Palace bears the dynasty's name in both honor and legacy. Its name carries a second significance, however: the lamb, Aarman's national animal, is a symbol of the people themselves — and so the Palace, home to the Shepherd of Aarman's Lands and Peoples, speaks to the covenant at the heart of the Empire.</p>
+        <p>Beyond its ceremonial function, Lamb Palace houses the offices of the Primarium, the Emperor's principal advisors, and serves as the venue for state receptions, treaty signings, and addresses to the nation. The Palace grounds, open to citizens on designated days, are a cherished institution of public life in Shandria.</p>
+      </div>
+      <div class="palace-facts">
+        <div class="palace-fact">
+          <div class="palace-fact-label">Location</div>
+          <div class="palace-fact-value">Shandria, Imperial Capital</div>
+        </div>
+        <div class="palace-fact">
+          <div class="palace-fact-label">Construction</div>
+          <div class="palace-fact-value">House of Lamb era — exact date a placeholder</div>
+        </div>
+        <div class="palace-fact">
+          <div class="palace-fact-label">Primary Material</div>
+          <div class="palace-fact-value">Red & pink granite</div>
+        </div>
+        <div class="palace-fact">
+          <div class="palace-fact-label">Function</div>
+          <div class="palace-fact-value">Imperial residence & executive offices</div>
+        </div>
+        <div class="palace-fact">
+          <div class="palace-fact-label">Named for</div>
+          <div class="palace-fact-value">House of Lamb & national animal of Aarman</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIORITIES -->
+<section class="priorities-section" id="priorities">
+  <div class="section-inner">
+    <p class="section-label">Imperial Agenda</p>
+    <h2 class="section-title">Priorities of Emperor Shane I</h2>
+    <div class="title-rule slate"></div>
+    <div class="priorities-grid">
+      <div class="priority-card">
+        <div class="priority-icon">⚖</div>
+        <div class="priority-title">Rule of Law & Constitutional Order</div>
+        <div class="priority-desc">Upholding the Principal Articles and ensuring that governance at every level of the Empire proceeds in accordance with its supreme law.</div>
+      </div>
+      <div class="priority-card" style="border-top-color: var(--crimson);">
+        <div class="priority-icon" style="background: var(--crimson-bg);">✦</div>
+        <div class="priority-title">Defense & Imperial Security</div>
+        <div class="priority-desc">Maintaining the strength and readiness of the uniformed services to defend Aarman's sovereignty and protect its people.</div>
+      </div>
+      <div class="priority-card" style="border-top-color: var(--purple-light);">
+        <div class="priority-icon" style="background: var(--purple-bg);">◈</div>
+        <div class="priority-title">Foreign Relations & Statecraft</div>
+        <div class="priority-desc">Advancing the interests of Aarman on the world stage through diplomacy, treaties, and the cultivation of enduring alliances.</div>
+      </div>
+      <div class="priority-card" style="border-top-color: var(--granite);">
+        <div class="priority-icon" style="background: var(--granite-bg);">❧</div>
+        <div class="priority-title">Provincial Welfare & Unity</div>
+        <div class="priority-desc">Strengthening the bond between the Throne and the Provinces, ensuring that the rights and prosperity of all subjects are safeguarded.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Lamb Palace</div>
+  <div class="footer-sub" style="margin: 0.25rem 0 0.5rem;">Shandria · Grand Imperial Republic of Aarman</div>
+  <div>Official residence and executive office of Emperor Shane I</div>
+  <div style="margin-top: 0.5rem; font-size: 12px; opacity: 0.4;">All rights reserved — Aarman</div>
+</footer>
+
+</body>
+</html>
